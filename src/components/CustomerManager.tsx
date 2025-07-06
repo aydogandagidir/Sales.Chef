@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PageHeader } from "./PageHeader";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
@@ -9,7 +10,8 @@ export function CustomerManager() {
   const updateCustomer = useMutation(api.customers.update);
 
   const [showForm, setShowForm] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState<Id<"customers"> | null>(null);
+  const [editingCustomer, setEditingCustomer] =
+    useState<Id<"customers"> | null>(null);
   const [formData, setFormData] = useState({
     companyName: "",
     contactName: "",
@@ -67,7 +69,7 @@ export function CustomerManager() {
       }
       resetForm();
     } catch (error) {
-      console.error('Failed to save customer:', error);
+      console.error("Failed to save customer:", error);
     }
   };
 
@@ -81,21 +83,18 @@ export function CustomerManager() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Customer Management</h2>
-        <button
-          onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Add New Customer
-        </button>
-      </div>
+      <PageHeader
+        title="Customer Management"
+        buttonLabel="Add New Customer"
+        icon="add"
+        onButtonClick={() => setShowForm(true)}
+      />
 
       {/* Customer Form */}
       {showForm && (
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
-            {editingCustomer ? 'Edit Customer' : 'Add New Customer'}
+            {editingCustomer ? "Edit Customer" : "Add New Customer"}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -106,7 +105,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.companyName}
-                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, companyName: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                   required
                 />
@@ -118,7 +119,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.contactName}
-                  onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, contactName: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                   required
                 />
@@ -130,7 +133,9 @@ export function CustomerManager() {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                   required
                 />
@@ -142,7 +147,9 @@ export function CustomerManager() {
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>
@@ -153,7 +160,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, address: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>
@@ -164,7 +173,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>
@@ -175,7 +186,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.country}
-                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, country: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>
@@ -186,7 +199,9 @@ export function CustomerManager() {
                 <input
                   type="text"
                   value={formData.industry}
-                  onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, industry: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                 />
               </div>
@@ -197,7 +212,9 @@ export function CustomerManager() {
               </label>
               <textarea
                 value={formData.notes}
-                onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, notes: e.target.value })
+                }
                 className="w-full border border-gray-300 rounded-md px-3 py-2"
                 rows={3}
               />
@@ -214,7 +231,7 @@ export function CustomerManager() {
                 type="submit"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
-                {editingCustomer ? 'Update' : 'Create'} Customer
+                {editingCustomer ? "Update" : "Create"} Customer
               </button>
             </div>
           </form>
@@ -259,10 +276,10 @@ export function CustomerManager() {
                   {customer.email}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {customer.phone || '-'}
+                  {customer.phone || "-"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {customer.industry || '-'}
+                  {customer.industry || "-"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <button
@@ -276,7 +293,7 @@ export function CustomerManager() {
             ))}
           </tbody>
         </table>
-        
+
         {customers.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500">No customers found</p>
